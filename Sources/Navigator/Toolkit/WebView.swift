@@ -11,6 +11,20 @@ final class WebView: WKWebView {
 
         let config = WKWebViewConfiguration()
         config.mediaTypesRequiringUserActionForPlayback = .all
+        
+        // Writing Tools behavior configuration using runtime
+        let selector = NSSelectorFromString("setWritingToolsBehavior:")
+        if config.responds(to: selector) {
+            print("DEBUG: WKWebViewConfiguration responds to writingToolsBehavior selector")
+            let none = 0
+            withUnsafePointer(to: none) { ptr in
+                _ = config.perform(selector, with: ptr)
+            }
+            print("DEBUG: Successfully configured writingToolsBehavior")
+        } else {
+            print("DEBUG: WKWebViewConfiguration does not respond to writingToolsBehavior selector")
+        }
+        
         super.init(frame: .zero, configuration: config)
 
         #if DEBUG && swift(>=5.8)
