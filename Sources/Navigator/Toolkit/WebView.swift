@@ -1,9 +1,3 @@
-//
-//  Copyright 2024 Readium Foundation. All rights reserved.
-//  Use of this source code is governed by the BSD-style license
-//  available in the top-level LICENSE file of the project.
-//
-
 import Foundation
 import WebKit
 
@@ -65,5 +59,11 @@ final class WebView: WKWebView {
             }
             contentView.removeInteraction(dragInteraction)
         }
+    }
+
+    @available(iOS 13.0, *)
+    override func buildMenu(with builder: UIMenuBuilder) {
+        editingActions.buildMenu(with: builder)
+        super.buildMenu(with: builder)
     }
 }
